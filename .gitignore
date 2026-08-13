@@ -24,3 +24,8 @@ logs/
 
 # Python cache
 __pycache__/
+
+# Archive - keep only the SQL scripts, ignore the rest
+archive/mean_mug_data/*
+!archive/mean_mug_data/mean_mug_scripts(M).sql
+archive/*.pdf
