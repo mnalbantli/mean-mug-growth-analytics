@@ -1,0 +1,3 @@
+CampaignID,Name,TargetSegment,Channel,DiscountRate,StartDate,EndDate,MenuItemID
+101,PSL Loyalty Push,Loyal,App,0.25,2024-02-15,2024-03-15,4
+102,Cold Brew Trial,New,Email,0.2,2024-01-10,2024-02-10,3

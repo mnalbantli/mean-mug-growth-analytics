@@ -1,0 +1,47 @@
+-- fct_orders: Contains order_id and customer_id.
+WITH orders as(
+    select *
+    from {{ ref('fct_orders') }}
+),
+
+-- fct_order_items: Contains order_id and menu_item_id.
+order_items as(
+    select *
+    from {{ ref('fct_order_items') }}
+),
+
+-- dim_menu_items: Contains menu_item_id and is_seasonal.
+menu_items as(
+    select *
+    from {{ ref('dim_menu_items') }}
+),
+
+-- we need a definitive list of customers who belong in "Bucket A" (The Seasonal Buyers)
+-- need a query that returns a distinct list of customer_ids who have purchased at least one item where the is_seasonal flag is true.
+seasonal_buyers as(
+    select
+        DISTINCT
+        o.customer_id
+    from
+        orders as o
+    inner join
+        order_items oi ON o.order_id = oi.order_id
+    inner join
+        menu_items mi ON oi.menu_item_id = mi.menu_item_id 
+    where mi.is_seasonal
+)
+
+--compare Bucket A (Seasonal) against Bucket B (Baseline).
+select
+    case 
+        when sb.customer_id IS NOT NULL then 'Seasonal Buyer'
+        else 'Baseline Buyer'
+    end as bucket,
+    avg(c.total_orders) as average_orders,
+    avg(c.total_spend) as average_spend
+from {{ ref('dim_customers') }} as c
+-- join customers to get total_orders and total_spend
+left join seasonal_buyers as sb 
+    ON sb.customer_id = c.customer_id
+group by bucket
+

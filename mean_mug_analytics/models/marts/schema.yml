@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "One row per customer, enriched with lifetime metrics."
+    columns:
+      - name: customer_id
+        description: "Primary key for the customer."
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_orders
+    description: "One row per transaction."
+    columns:
+      - name: order_id
+        description: "Primary key for the order."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key linking to the customer."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+  - name: dim_menu_items
+    description: "One row per menu item, enriched with seasonal flags."
+    columns:
+      - name: menu_item_id
+        description: "Primary key for the menu item."
+        tests:
+          - unique
+          - not_null
+      - name: category
+        description: "The product category group."
+        tests:
+          - accepted_values:
+              values: ['Bakery', 'Coffee', 'Food', 'Tea', 'Chocolate', 'Cold']
+
+  - name: fct_experiment_assignments
+    description: "One row per customer, per campaign assignment."
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customers')
+              field: customer_id
+      - name: campaign_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_campaigns')
+              field: campaign_id

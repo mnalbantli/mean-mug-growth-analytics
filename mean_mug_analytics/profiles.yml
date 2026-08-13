@@ -1,0 +1,6 @@
+mean_mug_analytics:
+  outputs:
+    dev:
+      type: duckdb
+      path: mean_mug.duckdb
+  target: dev

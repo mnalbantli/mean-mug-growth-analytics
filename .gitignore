@@ -1,0 +1,26 @@
+﻿# Credentials - never commit
+*.json
+!mean_mug_analytics/target/*.json
+mean-mug-analytics-*.json
+
+# Virtual environments
+.venv/
+venv/
+
+# dbt
+target/
+dbt_packages/
+logs/
+
+# OS/editor
+.vscode/
+.DS_Store
+
+# Env files
+.env
+
+# Local databases (regenerable)
+*.duckdb
+
+# Python cache
+__pycache__/

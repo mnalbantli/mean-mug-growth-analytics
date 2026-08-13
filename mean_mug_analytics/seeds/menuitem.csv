@@ -1,0 +1,21 @@
+﻿MenuItemID,Category,ItemName,Price,Cost,Available
+1,Coffee,Gingerbread Latte,5.25,1.45,1
+2,Coffee,Peppermint Mocha,5.5,1.6,1
+3,Coffee,Toasted Marshmallow Latte,5.35,1.5,1
+4,Coffee,Maple Brown Sugar Latte,5.1,1.4,1
+5,Coffee,Cinnamon Roll Cappuccino,4.95,1.3,1
+6,Tea,Hot Spiced Chai,4.25,1.05,1
+7,Tea,Winterberry Herbal Tea,3.95,0.85,1
+8,Tea,London Fog (Earl Grey Latte),4.75,1.1,1
+9,Chocolate,Salted Caramel Hot Chocolate,4.5,1.2,1
+10,Chocolate,Classic Hot Chocolate,3.75,0.95,1
+11,Bakery,Cranberry Orange Muffin,3.25,0.9,1
+12,Bakery,Gingerbread Cookie,2.5,0.65,1
+13,Bakery,Cinnamon Swirl Coffee Cake,3.75,1.1,1
+14,Bakery,Chocolate Peppermint Scone,3.45,0.95,1
+15,Bakery,Maple Pecan Bar,3.95,1.25,1
+16,Food,Winter Veggie Breakfast Wrap,6.95,2.5,1
+17,Food,Turkey Cranberry Panini,7.75,3,1
+18,Food,Tomato Basil Soup (Cup),4.5,1.2,1
+19,Food,White Chili (Cup),5.5,1.8,1
+20,Cold,Iced Peppermint Cold Brew,5.25,1.3,1

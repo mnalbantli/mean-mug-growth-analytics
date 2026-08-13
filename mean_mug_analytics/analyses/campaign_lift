@@ -1,0 +1,60 @@
+-- The business question: 
+-- Did customers who were exposed to a specific marketing campaign actually spend more money after seeing it compared to their normal behavior?
+
+-- fct_campaign_exposures: Contains customer_id, campaign_id, and the exact exposure_date (timestamp).
+WITH campaign_expo as(
+    select
+        *
+    from {{ ref('fct_campaign_exposures') }}
+),
+-- fct_orders: Contains customer_id, order_date, and total_amount
+orders as(
+    select
+        *
+    from {{ ref('fct_orders') }}
+),
+
+-- what a customer spent after they saw the ad?
+-- we need to filter it exposure_date > order_date
+spent_after_ad as(
+    select
+        o.customer_id,
+        sum(o.total_amount) as spend_after_ad
+    from
+        orders o
+    -- we need customers THAT SAW the ads, that's why inner
+    inner join
+        campaign_expo ce
+    ON o.customer_id = ce.customer_id
+    -- orders AFTER the ad exposure, using 30 days limit.
+    where ce.exposure_date <= o.order_date AND ce.exposure_date + INTERVAL 30 DAYS >= o.order_date
+    group by o.customer_id
+),
+
+-- what did actually a customer used to spent, before the ad?
+spent_before_ad as(
+    select 
+        o.customer_id,
+        sum(o.total_amount) as spend_before_ad
+    from
+        orders o
+     -- we need customers THAT WILL SEE the ads, that's why inner
+    inner join
+        campaign_expo ce
+    ON o.customer_id = ce.customer_id
+    -- orders BEFORE the ad exposure, using 30 days limit.
+    where ce.exposure_date > o.order_date AND ce.exposure_date - INTERVAL 30 DAYS < o.order_date
+    group by o.customer_id
+)
+
+select
+    sad.customer_id,
+    sad.spend_after_ad,
+    sba.spend_before_ad,
+    (sad.spend_after_ad - sba.spend_before_ad) as incremental_lift
+from
+    spent_after_ad as sad
+inner join
+    spent_before_ad as sba
+ON sad.customer_id = sba.customer_id
+
