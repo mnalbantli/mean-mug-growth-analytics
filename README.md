@@ -20,16 +20,16 @@ Full technical detail — pipeline architecture, dbt testing, modeling decisions
 
 **Caught a false signal before it could misdirect spend.** One campaign appeared to raise order value — but the pattern didn't hold up once repeat customers were properly accounted for, and a deeper check found no real effect. Scaling that campaign now would mean spending more against a result that isn't actually there. Full statistical methodology is in the [technical appendix](./docs/technical_appendix.md).
 
-![Promo impact on order value, showing no statistically significant difference between campaigns and baseline](./chart_campaign.png)
+![Promo impact on order value, showing no statistically significant difference between campaigns and baseline](./assets/chart_campaign.png)
 
 - **Target seasonal buyers as a retention segment** — the 2.6x order frequency and ~4x lifetime spend gap from the Key Finding above represents real revenue at stake, not a one-time holiday bump.
 - **RFM segmentation** identifies 7 customer segments as a more actionable targeting base than blanket campaigns:
 
-![Customer distribution across 7 RFM segments, color-coded by segment health](./chart_segments.png)
+![Customer distribution across 7 RFM segments, color-coded by segment health](./assets/chart_segments.png)
 
 - **Cohort retention**, tracked by acquisition month:
 
-![Cohort retention matrix by acquisition month](./chart_cohort.png)
+![Cohort retention matrix by acquisition month](./assets/chart_cohort.png)
 
 *(Dashboard: "Mean Mug Growth Analytics | Customer Command Center" — Dynamic LTV $113.91, AOV $11.15, 859 total customers, built in Power BI on the same BigQuery marts.)*
 
